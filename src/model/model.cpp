@@ -14,7 +14,6 @@ int fitness(korali::Sample &k) {
     int WARP_TILE_N = k["Parameters"][4];
     int SPLIT_K = k["Parameters"][5];
 
-    // TODO Check if parameter are even possible, if not return before compiling program
 
     if(WARP_TILE_M > THREADBLOCK_TILE_M){
         return WRONG

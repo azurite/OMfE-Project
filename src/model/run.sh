@@ -18,6 +18,7 @@ echo " */" >>CONFIG
 echo "#ifndef CONFIG_H_" >>CONFIG
 echo "#define CONFIG_H_" >>CONFIG
 
+# TODO Decide which M,N,K to choose
 echo "// This STAYS ////////////////" >>CONFIG
 echo "#define M 1024				//" >>CONFIG
 echo "#define N 1024				//" >>CONFIG
