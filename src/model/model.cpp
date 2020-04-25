@@ -1,5 +1,6 @@
 # include "model.hpp"
 #include "korali.hpp"
+#include <bits/stdc++.h>
 
 int fitness(korali::Sample &k) {
 
@@ -12,11 +13,11 @@ int fitness(korali::Sample &k) {
 
     // TODO Check if parameter are even possible, if not return before compiling program
 
-//    TODO Write config file
-//      TODO compile program
-// TODO Run Program
-//  Return time
+    String cmd = "./run.sh " + THREADBLOCK_TILE_M + " " + THREADBLOCK_TILE_N + " " + THREADBLOCK_WARP_TILE_K + " " +
+                 WARP_TILE_M + " " + WARP_TILE_N + " " + SPLIT_K;
+
+    int res = system(cmd.c_str());
 
 
-    return 0;
+    return res;
 }
