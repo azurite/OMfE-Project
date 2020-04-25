@@ -1,10 +1,11 @@
-# include "model.hpp"
-#include "korali.hpp"
 #include <bits/stdc++.h>
 #include <iostream>
 #include <string>
+#include <limits>
 
-#define WRONG 999999999
+#include "model.hpp"
+
+#define WRONG std::numeric_limits<int>::max()
 
 int fitness(korali::Sample &k) {
 
@@ -17,16 +18,24 @@ int fitness(korali::Sample &k) {
 
 
     if(WARP_TILE_M > THREADBLOCK_TILE_M){
-        return WRONG
+        return WRONG;
     }
 
     if(WARP_TILE_N >  THREADBLOCK_TILE_N){
-        return WRONG
+        return WRONG;
     }
 
 
-    String cmd = "./run.sh " + THREADBLOCK_TILE_M + " " + THREADBLOCK_TILE_N + " " + THREADBLOCK_WARP_TILE_K + " " +
-                 WARP_TILE_M + " " + WARP_TILE_N + " " + SPLIT_K;
+    std::stringstream ss;
+    ss << "./run.sh " <<
+          THREADBLOCK_TILE_M << " " <<
+          THREADBLOCK_TILE_N << " " <<
+          THREADBLOCK_WARP_TILE_K << " " <<
+          WARP_TILE_M << " " <<
+          WARP_TILE_N << " " <<
+          SPLIT_K;
+
+    std::string cmd = ss.str();
 
     std::cout << cmd << std::endl;
 
