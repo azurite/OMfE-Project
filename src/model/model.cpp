@@ -2,6 +2,7 @@
 #include "korali.hpp"
 #include <bits/stdc++.h>
 #include <iostream>
+#include <string>
 
 #define WRONG 999999999
 
