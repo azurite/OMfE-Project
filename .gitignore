@@ -3,3 +3,6 @@
 
 # c++ binaries
 *.out
+
+
+.idea

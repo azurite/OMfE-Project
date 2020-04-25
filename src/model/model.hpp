@@ -1,6 +1,6 @@
 #ifndef _MODEL_HPP_
 #define _MODEL_HPP_
 
-float fitness(float);
+int fitness(korali::Sample &k);
 
 #endif // _MODEL_HPP_
