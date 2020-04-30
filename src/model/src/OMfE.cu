@@ -12,6 +12,7 @@
 #include "Matrix.h"
 #include "CUTLASS.cuh"
 #include <iostream>
+#include <fstream>
 
 #include <chrono>
 
@@ -23,6 +24,8 @@
 
 
 int main(void) {
+
+
 
 	Matrix<TYPE> A(M, K);
 	Matrix<TYPE> B(K, N);
@@ -54,6 +57,14 @@ int main(void) {
 
 	checkCudaErrors(
 			cudaMemcpy2D(CUDA_B.elems, pitch_B,B.elems, N * sizeof(TYPE), N * sizeof(TYPE), K, cudaMemcpyHostToDevice));
+
+    for (int i = 0; i < 5; ++i) {
+
+        checkCudaErrors(
+                multiply(&alpha, CUDA_A.elems, pitch_A / sizeof(TYPE),
+                         CUDA_B.elems, pitch_B / sizeof(TYPE), &beta,
+                         CUDA_C.elems, pitch_C / sizeof(TYPE)));
+    }
 
 
 	auto start = std::chrono::steady_clock::now();
@@ -87,9 +98,15 @@ int main(void) {
 
 	int time = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
 
-	std::cout << time/RUNS << std::endl;
+	std::cout << "Result_CUDA: " << time/RUNS << std::endl;
+
+    std::ofstream ofs("../time.txt", std::ofstream::trunc);
+
+    ofs << time/RUNS;
+
+    ofs.close();
 
 
-	return time/RUNS;
+	return 0;
 }
 

@@ -2,12 +2,15 @@
 #include <iostream>
 #include <string>
 #include <limits>
+#include <fstream>
+
 
 #include "model.hpp"
+#include "korali.hpp"
 
-#define WRONG std::numeric_limits<int>::max()
+#define WRONG std::numeric_limits<int>::min()
 
-int fitness(korali::Sample &k) {
+void fitness(korali::Sample &k) {
 
     int THREADBLOCK_TILE_M = k["Parameters"][0];
     int THREADBLOCK_TILE_N = k["Parameters"][1];
@@ -18,16 +21,18 @@ int fitness(korali::Sample &k) {
 
 
     if(WARP_TILE_M > THREADBLOCK_TILE_M){
-        return WRONG;
+        k["F(x)"] =  WRONG;
+        return ;
     }
 
     if(WARP_TILE_N >  THREADBLOCK_TILE_N){
-        return WRONG;
+        k["F(x)"] =  WRONG;
+        return ;
     }
 
 
     std::stringstream ss;
-    ss << "./run.sh " <<
+    ss << "./src/model/run.sh " <<
           THREADBLOCK_TILE_M << " " <<
           THREADBLOCK_TILE_N << " " <<
           THREADBLOCK_WARP_TILE_K << " " <<
@@ -39,8 +44,23 @@ int fitness(korali::Sample &k) {
 
     std::cout << cmd << std::endl;
 
-    int res = system(cmd.c_str());
+    std::ifstream myfile ("./src/model/time.txt");
+
+    if (!myfile.is_open()) {
+        std::cerr << "There was a problem opening the input file!\n";
+        exit(1);//exit or do additional error checking
+    }
 
 
-    return res;
+    system(cmd.c_str());
+
+    double res = 0.0;
+    myfile >> res;
+
+    myfile.close();
+
+    std::cout << "Result_model: " << res << std::endl;
+
+    k["F(x)"] = -res;
+
 }

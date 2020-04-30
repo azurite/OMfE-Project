@@ -3,6 +3,6 @@
 
 #include "korali.hpp"
 
-int fitness(korali::Sample &k);
+void fitness(korali::Sample &k);
 
 #endif // _MODEL_HPP_
