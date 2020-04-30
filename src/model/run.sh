@@ -18,13 +18,12 @@ echo " */" >>CONFIG
 echo "#ifndef CONFIG_H_" >>CONFIG
 echo "#define CONFIG_H_" >>CONFIG
 
-# TODO Decide which M,N,K to choose
 echo "// This STAYS ////////////////" >>CONFIG
-echo "#define M 1024				//" >>CONFIG
-echo "#define N 1024				//" >>CONFIG
-echo "#define K 1024				//" >>CONFIG
+echo "#define M 499				//" >>CONFIG
+echo "#define N 2377				//" >>CONFIG
+echo "#define K 5857				//" >>CONFIG
 echo "#define TYPE float			//" >>CONFIG
-echo "#define RUNS 16 			//" >>CONFIG
+echo "#define RUNS 50 			//" >>CONFIG
 echo "//////////////////////////////" >>CONFIG
 
 echo "// THIS ARE THE ARGUMENTS ////////////" >>CONFIG
