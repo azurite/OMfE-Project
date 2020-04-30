@@ -6,7 +6,7 @@
 
 all: model.o
 KORALICXX=$(shell python3 -m korali.cxx --compiler)
-KORALICFLAGS=`python3 -m korali.cxx --cflags`
+KORALICFLAGS=`python3 -m korali.cxx --cflags` -O3 -march=native
 
 model.o: model.cpp
 	$(KORALICXX) -c $< $(KORALICFLAGS)

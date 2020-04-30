@@ -6,13 +6,13 @@
 
 BINARIES = main
 KORALICXX=$(shell python3 -m korali.cxx --compiler)
-KORALICFLAGS=`python3 -m korali.cxx --cflags`
+KORALICFLAGS=`python3 -m korali.cxx --cflags` -O3 -march=native
 KORALILIBS=`python3 -m korali.cxx --libs`
 
 SDIR = src
 
 # fixes linker error during the execution of make
-KORALILIBS := $(KORALILIBS) -lpython3
+# KORALILIBS := $(KORALILIBS) -lpython3
 
 .SECONDARY:
 .PHONY: all
@@ -31,3 +31,6 @@ $(SDIR)/model/%.o:
 clean:
 	$(MAKE) -C $(SDIR)/model/ clean
 	$(RM) $(BINARIES) *.out *.o *.ti *.optrpt *.txt
+
+plot:
+	python -m korali.plotter
