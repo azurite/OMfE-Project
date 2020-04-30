@@ -21,7 +21,7 @@ all: $(BINARIES)
 $(BINARIES) : % : %.o $(SDIR)/model/model.o
 	$(KORALICXX) -o $@.out $^ $(KORALILIBS)
 
-model/%.o:
+$(SDIR)/model/%.o:
 	$(MAKE) -C $(SDIR)/model/ all
 
 %.o: $(SDIR)/%.cpp
