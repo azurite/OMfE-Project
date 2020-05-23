@@ -31,6 +31,7 @@ $(SDIR)/model/%.o:
 clean:
 	$(MAKE) -C $(SDIR)/model/ clean
 	$(RM) $(BINARIES) *.out *.o *.ti *.optrpt *.txt
+	rm -rf _korali_result
 
 plot:
 	python -m korali.plotter
