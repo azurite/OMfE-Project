@@ -45,11 +45,19 @@ endif
 ifeq ($(shell uname -s),Darwin)
 GLUT_LIBS := -Xlinker -framework -Xlinker GLUT -Xlinker -framework -Xlinker OpenGL
 else
-GLUT_LIBS := -lGL -lGLU -lglut 
+GLUT_LIBS := -lGL -lGLU -lglut
+endif
+
+NVCC_COMPILER = /usr/local/cuda-10.2/bin/nvcc
+
+ifdef archlinux
+NVCC_COMPILER = /opt/cuda/bin/nvcc
+LIB_PATHS = -L /usr/lib/openmpi -L /opt/cuda/lib/
+LIBS := -llsb -lgomp -lcublas -lmpi_cxx
 endif
 
 
-# Add inputs and outputs from these tool invocations to the build variables 
+# Add inputs and outputs from these tool invocations to the build variables
 
 # All Target
 all: cuCOSMA
@@ -58,7 +66,7 @@ all: cuCOSMA
 cuCOSMA: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: NVCC Linker'
-	/usr/local/cuda-10.2/bin/nvcc --cudart shared --relocatable-device-code=false -gencode arch=compute_50,code=compute_50 -gencode arch=compute_50,code=sm_50 -link -o  "cuCOSMA" $(OBJS) $(USER_OBJS) $(LIBS)
+	$(NVCC_COMPILER) --cudart shared --relocatable-device-code=false -gencode arch=compute_50,code=compute_50 -gencode arch=compute_50,code=sm_50 -link -o  "cuCOSMA" $(OBJS) $(USER_OBJS) $(LIB_PATHS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 

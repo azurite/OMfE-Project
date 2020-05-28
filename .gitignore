@@ -1,8 +1,16 @@
+# make dependencies files
+*.d
+
 # c++ object files
 *.o
 
 # c++ binaries
 *.out
 
+# temporary hpp files
+*.hpp.gch
+
+# this file is only needed by the cuda compiler and is constantly modified
+src/model/src/config.h
 
 .idea

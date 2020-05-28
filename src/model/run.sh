@@ -52,28 +52,41 @@ echo "#define BENCHMARK" >>$CONFIG
 echo "//////////////////////////////////////" >>$CONFIG
 echo "#endif /* CONFIG_H_ */" >>$CONFIG
 
-time_file=../time.txt
 # compile program
 cd ./src/model/Release
-make clean >/dev/null 2>/dev/null
-make >/dev/null 2>/dev/null
 
+time_file=../time.txt
+touch $time_file
 
+cleanup() {
+  rm $time_file
+  make clean >/dev/null 2>/dev/null
+}
+
+#make clean >/dev/null 2>/dev/null
+
+ARCHLINUX=$(hostnamectl | grep -oh "Arch Linux")
+if [[ -n $ARCHLINUX ]]; then
+  make archlinux=1 all >/dev/null 2>/dev/null
+else
+  make >/dev/null 2>dev/null
+fi
 
 if [ $? -ne 0 ]; then
+  echo "cuda compiler error"
   echo "999999999999" > $time_file
+  cleanup
   exit 1
 fi
 
 # run program
-
 ./cuCOSMA
 
 if [ $? -ne 0 ]; then
-
+  echo "./cuCOSMA runtime error"
   echo "999999999999" > $time_file
+  cleanup
   exit 1
 fi
 
-
-
+cleanup

@@ -14,6 +14,10 @@ SDIR = src
 # fixes linker error during the execution of make
 # KORALILIBS := $(KORALILIBS) -lpython3
 
+ifdef archlinux
+KORALILIBS := $(KORALILIBS) -lpython3
+endif
+
 .SECONDARY:
 .PHONY: all
 all: $(BINARIES)
