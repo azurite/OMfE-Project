@@ -1,0 +1,63 @@
+Guidelines mainly taken from the paper
+"On the Usage of Differential Evolution for Function Optimization"
+by Rainer Storn
+
+D  := Number of Variables to optimize (Dimension)
+NP := Population Size
+F  := Mutation Rate
+CR := Crossover Rate
+
+----------------------------
+Good Choices for (NP, F, CR)
+----------------------------
+
+* Most often CR << 1 if no convergence can be achieved CR in [0.8, 1] helps
+* For many applications NP = 10 * D is a good choice
+* F is usually in [0.5, 1]
+* The higher NP the lower F should be
+
+-----------------
+General good tips
+-----------------
+
+* It's a good convergence sign if the parameters of the best population member
+change a lot from generation to generation, especially at the beginning
+of the minimization and even if the objective function value of the
+best population member decreases
+
+* It is not necessarily bad, if the objective function value of the best
+population member exhibits plateaus during the minimization process.
+However, it is an indication that the minimization might take a long time
+or that the increase of the population size NP
+might be beneficial for convergence
+
+* The objective function value of the best population member shouldn't
+drop too fast, otherwise the optimization might get stuck in a local minimum.
+
+* The proper choice of the objective function is crucial. The more knowledge
+one includes, the more likely the minimization is going to converge.
+
+---------------------------------
+Tuning Korali experiment settings
+---------------------------------
+
+Main Settings
+-------------
+e[“Solver”][“Population Size”] = NP
+e[“Solver”][“Mutation Rate”] = F
+e[“Solver”][“Crossover Rate”] = CR
+e[“Solver”][“Mutation Rule”] = "Fixed" | "Self Adaptive"
+  * "Fixed": F, CR, NP stay constant
+  * "Self Adaptive": F, CR, NP dynamically adjusted during runs
+
+Other Settings
+--------------
+e[“Solver”][“Parent Selection Rule”] = "Random" | "Best"
+  * "Random": Select parent randomly
+  * "Best": Mutate only best variables
+
+e[“Solver”][“Accept Rule”] = "Best" | "Greedy" | "Iterative" | "Improved"
+  * "Best": Update best sample if better than Best Ever Sample.
+  * "Greedy": Accept all candiates better than parent.
+  * "Iterative": Iterate through candidates and accept if Best Ever Value improved.
+  * "Improved": Accept all candidates better than Best Ever Sample.
