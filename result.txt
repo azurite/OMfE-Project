@@ -1,0 +1,22 @@
+    e["Solver"]["Type"] = "DEA";
+    e["Solver"]["Population Size"] = 100;
+     e["Solver"]["Termination Criteria"]["Max Model Evaluations"] = 2'500;
+
+[Korali] Current Function Value: Max = -5.855e+02 - Best = -5.674e+02
+[Korali] --------------------------------------------------------------------
+[Korali] DEA finished correctly.
+[Korali] Termination Criterion Met: Solver['Max Model Evaluations'] = 2500.
+[Korali] Optimum found: -5.673730e+02
+[Korali] Optimum found at:
+         THREAD_TILE_M = +5.259e+00
+         THREAD_TILE_N = +1.012e+01
+         WARPTILE_MULTIPLICATOR_M = +5.296e+00
+         WARPTILE_MULTIPLICATOR_N = +3.838e+00
+         THREADBLOCK_MULTIPLICATOR_M = +4.081e+00
+         THREADBLOCK_MULTIPLICATOR_N = +4.861e+00
+         LOAD_K = +4.402e+01
+         SPLIT_K = +4.500e+00
+[Korali] Number of Infeasible Samples: 1767
+[Korali] Final Generation: 25
+[Korali] Elapsed Time: 27732.655s
+
